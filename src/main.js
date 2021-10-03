@@ -1,7 +1,17 @@
-import Vue from 'vue' //global vue object
-import App from './App.vue'
+import Vue from 'vue'; //global vue object
+import App from './App.vue';
+import VueRouter from 'vue-router';
+import { routes } from './routes';
+
+Vue.use(VueRouter);
+
+const router = new VueRouter({
+  routes,
+  mode: 'history'
+});
 
 new Vue({
   el: '#app',
+  router,
   render: h => h(App)
-})
+});
