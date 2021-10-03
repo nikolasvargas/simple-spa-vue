@@ -7,6 +7,11 @@
       <li class="image-list-item" v-for="image in filterImages" :key="image.id">
         <panel :title="image.titulo">
           <responsive-images :url="image.url" :title="image.titulo"/>
+          <buttonDelete
+            title="remover"
+            ptype="button"
+            :pconfirm="true"
+            @enableButton="removeImage(image)"/>
         </panel>
       </li>
     </ul>
@@ -17,28 +22,14 @@
 import axios from 'axios';
 import Panel from '../shared/panel/Panel.vue';
 import ResponsiveImages from '../shared/responsive-images/ResponsiveImages.vue';
+import Delete from '../shared/button/Delete.vue';
 
 export default {
-
   components: {
     panel: Panel,
-    ResponsiveImages: ResponsiveImages
+    ResponsiveImages: ResponsiveImages,
+    buttonDelete: Delete
   },
-
-  data() {
-    return {
-      title: "simple-spa-vue",
-      images: [],
-      filterInput: ''
-    }
-  },
-
-  created() {
-    axios.get('http://localhost:3000/v1/fotos')
-      .then(res => res.data)
-      .then(images => this.images = images, err => console.log(err));
-  },
-
   //computed properties...
   //são métodos que se declarados dentro desse objeto computed, podem ser chamados como
   //uma propriedade direto na view... (ver exemplo chamando filterImages na linha 7)
@@ -50,7 +41,24 @@ export default {
       }
       return this.images;
     }
-  }
+  },
+  methods: {
+    removeImage(image) {
+      alert(image.titulo);
+    }
+  },
+  created() {
+    axios.get('http://localhost:3000/v1/fotos')
+      .then(res => res.data)
+      .then(images => this.images = images, err => console.log(err));
+  },
+  data() {
+    return {
+      title: "simple-spa-vue",
+      images: [],
+      filterInput: ''
+    }
+  },
 }
 </script>
 
