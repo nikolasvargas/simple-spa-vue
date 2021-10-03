@@ -14,7 +14,12 @@
 <script>
 export default {
   //propriedades que o componente aceita receber
-  props: ['title'],
+  props: {
+    title: {
+      type: String,
+      required: false
+    }
+  },
 
   data() {
     return {
