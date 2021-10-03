@@ -6,7 +6,7 @@
     <ul class="image-list">
       <li class="image-list-item" v-for="image in filterImages" :key="image.id">
         <panel :title="image.titulo">
-          <img class="image-content" :src="image.url" :alt="image.titulo">
+          <responsive-images :url="image.url" :title="image.titulo"/>
         </panel>
       </li>
     </ul>
@@ -16,11 +16,13 @@
 <script>
 import axios from 'axios';
 import Panel from './components/shared/panel/Panel.vue';
+import ResponsiveImages from './components/shared/responsive-images/ResponsiveImages.vue';
 
 export default {
 
   components: {
-    panel: Panel
+    panel: Panel,
+    ResponsiveImages: ResponsiveImages
   },
 
   data() {
@@ -71,11 +73,8 @@ export default {
     display: inline-block;
   }
 
-  .image-content {
-    width: 100%;
-  }
-
   .input-filter {
+    display: block;
     width: 100%;
   }
 </style>

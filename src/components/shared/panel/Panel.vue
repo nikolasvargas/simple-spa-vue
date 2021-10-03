@@ -2,9 +2,12 @@
   <div class="panel">
     <!-- @ is v-on: shortcut -->
     <h2 class="panel-title" @dblclick="visible = !visible">{{ title }}</h2>
-    <div class="panel-content" v-show="visible">
-      <slot></slot>
-    </div>
+    <transition name="panel-fade">
+      <!-- v-show é apenas um toggle de display none -->
+      <div class="panel-content" v-show="visible">
+        <slot></slot>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -41,5 +44,13 @@ export default {
     margin: 0 0 15px 0;
     padding: 10px;
     text-transform: uppercase;
+  }
+
+  .panel-fade-enter, .panel-fade-leave-active {
+    opacity: 0;
+  }
+
+  .panel-fade-enter-active, .panel-fade-leave-active {
+    transition: opacity .2s;
   }
 </style>
