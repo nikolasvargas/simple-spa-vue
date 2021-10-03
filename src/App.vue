@@ -4,7 +4,7 @@
     <!-- v-on:input data-binding é broken em... -->
     <input type="search" class="input-filter" placeholder="type whatever you want" v-on:input="filterInput = $event.target.value">
     <ul class="image-list">
-      <li class="image-list-item" v-for="image in images" :key="image.id">
+      <li class="image-list-item" v-for="image in filterImages" :key="image.id">
         <panel :title="image.titulo">
           <img class="image-content" :src="image.url" :alt="image.titulo">
         </panel>
@@ -30,10 +30,24 @@ export default {
       filterInput: ''
     }
   },
+
   created() {
     axios.get('http://localhost:3000/v1/fotos')
       .then(res => res.data)
       .then(images => this.images = images, err => console.log(err));
+  },
+
+  //computed properties...
+  //são métodos que se declarados dentro desse objeto computed, podem ser chamados como
+  //uma propriedade direto na view... (ver exemplo chamando filterImages na linha 7)
+  computed: {
+    filterImages() {
+      if (this.filterInput.trim().length > 0) {
+        let exp = new RegExp(this.filterInput.trim(), 'i');
+        return this.images.filter(image => exp.test(image.titulo));
+      }
+      return this.images;
+    }
   }
 }
 </script>
