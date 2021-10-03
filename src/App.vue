@@ -2,7 +2,7 @@
   <div class="tbody">
     <h1 class="center">{{ title }}</h1>
     <!-- v-on:input data-binding é broken em... -->
-    <input type="search" class="input-filter" placeholder="type whatever you want" v-on:input="filterInput = $event.target.value">
+    <input type="search" class="input-filter" placeholder="type whatever you want" @input="filterInput = $event.target.value">
     <ul class="image-list">
       <li class="image-list-item" v-for="image in filterImages" :key="image.id">
         <panel :title="image.titulo">
@@ -72,6 +72,10 @@ export default {
   }
 
   .image-content {
+    width: 100%;
+  }
+
+  .input-filter {
     width: 100%;
   }
 </style>
